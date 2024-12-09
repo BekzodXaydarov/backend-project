@@ -1,6 +1,7 @@
 const Design = require("../models/design.model")
 const { DesignCreateSchema, DesignUpdateSchema } = require("../validations/design.validation")
 const MiddleWare = require("../middleware")
+const Category = require("../models/category.model")
 
 exports.create = async (req, res) => {
     if (!req.file) {
@@ -43,7 +44,14 @@ exports.find = async (req, res) => {
 
 exports.findById = async (req, res) => {
     try {
-        const design = await Design.findByPk(req.params.id)
+        const design = await Design.findByPk(req.params.id,{
+            include:[
+                {
+                    model: Category,
+                    as:"category"
+                }
+            ]
+        })
         if (!design) {
             return res.status(404).json({
                 succes: false,
