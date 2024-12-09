@@ -140,7 +140,10 @@ exports.login = async (req, res) => {
 }
 
 exports.getUserByToken = async (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization?.split(' ')[0];
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'No token provided' });
+    }
     try {
         const decoded = jwt.verify(token, "userLogin");
         const user = await User.findByPk(decoded.id);
@@ -156,7 +159,7 @@ exports.getUserByToken = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             success: false,
-            message:error.message
+            message: error.message
         })
     }
 }
