@@ -1,7 +1,6 @@
-const Design = require("../models/design.model")
 const { DesignCreateSchema, DesignUpdateSchema } = require("../validations/design.validation")
-const MiddleWare = require("../middleware")
-const Category = require("../models/category.model")
+const MiddleWare = require("../middleware");
+const { Design, Category } = require("../models");
 
 exports.create = async (req, res) => {
     if (!req.file) {

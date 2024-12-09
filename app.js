@@ -21,6 +21,7 @@ app.use("/api", Category)
 const Design = require("./routes/desing.route")
 app.use("/api", Design)
 
+
 const PORT = process.env.PORT || 3001
 
 sequelize.sync().then(() => {
