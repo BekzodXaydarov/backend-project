@@ -15,10 +15,6 @@ const Design = sequelize.define("design", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    design_price: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     design_category: {
         type: DataTypes.INTEGER,
         allowNull: false,
