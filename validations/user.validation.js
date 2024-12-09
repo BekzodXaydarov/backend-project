@@ -5,7 +5,6 @@ const UserCreateSchema = Joi.object({
     name: Joi.string().required(),
     lastName: Joi.string().required(),
     password: Joi.string().required(),
-    email: Joi.string().email().required()
 })
 
 const UserUpdateSchema = Joi.object({
@@ -13,7 +12,6 @@ const UserUpdateSchema = Joi.object({
     name: Joi.string().required(),
     lastName: Joi.string().required(),
     password: Joi.string().required(),
-    email: Joi.string().email().required()
 })
 
 const UserLoginSchema = Joi.object({

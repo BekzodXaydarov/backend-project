@@ -27,11 +27,6 @@ const User = sequelize.define("user", {
         allowNull: false,
         unique: true
     },
-    email: {
-        type: DataType.STRING,
-        allowNull: false,
-        unique: true
-    }
 })
 
 User.beforeSave(async (admin) => {
