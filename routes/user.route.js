@@ -10,8 +10,8 @@ router.get("/user", UserController.find)
 router.get("/user/:id", UserController.findById)
 router.put("/user/:id", MiddleWare.Validation(UserUpdateSchema), UserController.update)
 router.delete("/user/:id", UserController.delete)
-router.post("/userLogin", MiddleWare.Validation(UserLoginSchema), UserController.login)
-
+router.post("/user/login", MiddleWare.Validation(UserLoginSchema), UserController.login)
+router.get("/userToken",UserController.getUserByToken)
 
 
 module.exports = router
