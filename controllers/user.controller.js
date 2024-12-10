@@ -5,10 +5,11 @@ const { User } = require("../models")
 exports.create = async (req, res) => {
     try {
         const user = await User.create(req.body)
-        return res.status(201).json({
+        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin', { expiresIn: '1h' })
+        return res.status(200).json({
             success: true,
-            message: "User created",
-            user
+            message: "token",
+            token
         })
     }
     catch (error) {
@@ -109,13 +110,14 @@ exports.delete = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { userName, password } = req.body;
-        const user = await User.findOne({ userName })
+        const user = await User.findOne({ where: { userName } })
         if (!user) {
             return res.status(401).json({
                 success: false,
                 message: "UserName or Password invalid"
             })
         }
+        
         const matchPassword = await bcrypt.compare(password, user.password)
         if (!matchPassword) {
             return res.status(401).json({
@@ -124,7 +126,7 @@ exports.login = async (req, res) => {
             })
         }
 
-        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin')
+        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin', { expiresIn: '1h' })
         return res.status(200).json({
             success: true,
             message: "token",
@@ -145,12 +147,16 @@ exports.getUserByToken = async (req, res) => {
         return res.status(401).json({ success: false, message: 'No token provided' });
     }
     try {
-        const decoded = jwt.verify(token, "userLogin");
-        const user = await User.findByPk(decoded.id);
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+        const decoded = await jwt.verify(token, "userLogin");
+        const user = await User.findByPk(decoded.id);
+        if (!user || user.password !== decoded.password) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid token or user not found'
+            });
         }
+
         return res.status(200).json({
             success: true,
             user
