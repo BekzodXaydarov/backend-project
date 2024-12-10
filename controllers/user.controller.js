@@ -5,7 +5,7 @@ const { User } = require("../models")
 exports.create = async (req, res) => {
     try {
         const user = await User.create(req.body)
-        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin', { expiresIn: '1h' })
+        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin')
         return res.status(200).json({
             success: true,
             message: "token",
@@ -126,7 +126,7 @@ exports.login = async (req, res) => {
             })
         }
 
-        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin', { expiresIn: '1h' })
+        const token = await jwt.sign({ id: user.id, password: user.password }, 'userLogin')
         return res.status(200).json({
             success: true,
             message: "token",
