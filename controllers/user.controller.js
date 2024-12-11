@@ -150,7 +150,7 @@ exports.getUserByToken = async (req, res) => {
 
         const decoded = await jwt.verify(token, "userLogin");
         const user = await User.findByPk(decoded.id);
-        if (!user || user.password !== decoded.password) {
+        if (!user) {
             return res.status(401).json({
                 success: false,
                 message: 'Invalid token or user not found'
