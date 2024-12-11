@@ -5,6 +5,7 @@ const UserCreateSchema = Joi.object({
     name: Joi.string().required(),
     lastName: Joi.string().required(),
     password: Joi.string().required(),
+    phone: Joi.string().pattern(/^\+998\d{9}$/)
 })
 
 const UserUpdateSchema = Joi.object({
@@ -12,6 +13,7 @@ const UserUpdateSchema = Joi.object({
     name: Joi.string().required(),
     lastName: Joi.string().required(),
     password: Joi.string().required(),
+    phone: Joi.string().pattern(/^\+998\d{9}$/)
 })
 
 const UserLoginSchema = Joi.object({

@@ -1,6 +1,6 @@
 const sequelize = require("../config/db")
-const DataType = require("sequelize")
 const bcrypt = require("bcrypt")
+const DataType = require("sequelize")
 
 const User = sequelize.define("user", {
     id: {
@@ -27,6 +27,10 @@ const User = sequelize.define("user", {
         allowNull: false,
         unique: true
     },
+    phone: {
+        type: DataType.STRING,
+        allowNull: false
+    }
 })
 
 User.beforeSave(async (admin) => {
