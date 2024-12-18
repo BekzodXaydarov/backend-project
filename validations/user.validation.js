@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
 const UserCreateSchema = Joi.object({
+    img: Joi.string().required(),
     userName: Joi.string().required(),
     name: Joi.string().required(),
     lastName: Joi.string().required(),
@@ -9,6 +10,7 @@ const UserCreateSchema = Joi.object({
 })
 
 const UserUpdateSchema = Joi.object({
+    img: Joi.string().required(),
     userName: Joi.string().required(),
     name: Joi.string().required(),
     lastName: Joi.string().required(),

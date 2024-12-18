@@ -9,6 +9,9 @@ const User = sequelize.define("user", {
         autoIncrement: true,
         primaryKey: true
     },
+    img: {
+        type: DataType.STRING,
+    },
     userName: {
         type: DataType.STRING,
         allowNull: false,
